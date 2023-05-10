@@ -15,8 +15,30 @@ async function main() {
       },
     });
   }
+  const typesData = [{
+    name: 'Presencial whith Hotel',
+        includesHotel: true,
+        isRemote: false,
+        price: 600,
+  },{
+    name: 'Presencial no Hotel',
+        includesHotel: false,
+        isRemote: false,
+        price: 250,
+  },{
+    name: 'Online',
+        includesHotel: false,
+        isRemote: true,
+        price: 100,
+  }]
+  let typesCount = await prisma.ticketType.count({})
+  if(typesCount != 3){
+    typesCount = (await prisma.ticketType.createMany({
+      data:typesData
+    })).count
+  }
 
-  console.log({ event });
+  console.log({ event, typesCount });
 }
 
 main()
