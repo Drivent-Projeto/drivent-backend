@@ -1,5 +1,5 @@
-import { prisma, redis } from '@/config';
 import { Event } from '@prisma/client';
+import { prisma, redis } from '@/config';
 
 const eventKey = 'event';
 
