@@ -1,8 +1,8 @@
+import faker from '@faker-js/faker';
 import { PrismaClient } from '@prisma/client';
 import dayjs from 'dayjs';
+
 const prisma = new PrismaClient();
-import { createHotel, createRoomWithHotelId } from '../tests/factories/hotels-factory';
-import faker from '@faker-js/faker';
 
 async function main() {
   let event = await prisma.event.findFirst();
@@ -13,7 +13,7 @@ async function main() {
         logoImageUrl: 'https://files.driveneducation.com.br/images/logo-rounded.png',
         backgroundImageUrl: 'linear-gradient(to right, #FA4098, #FFD77F)',
         startsAt: dayjs().toDate(),
-        endsAt: dayjs().add(21, 'days').toDate(),
+        endsAt: dayjs().add(3, 'days').toDate(),
       },
     });
   }
@@ -68,7 +68,81 @@ async function main() {
     hotels = await prisma.hotel.findMany();
   }
 
-  console.log({ event, typesCount, hotels });
+  const activitiesData = [
+    {
+      name: 'Minecraft: montando o PC ideal',
+      local: 'mainAuditorium',
+      capacity: 1,
+      startsAt: dayjs().set('hour', 9).set('minute', 0).set('second', 0).toDate(),
+      endsAt: dayjs().set('hour', 10).set('minute', 0).set('second', 0).toDate(),
+    },
+    {
+      name: 'LoL: montando o PC ideal',
+      local: 'mainAuditorium',
+      capacity: 2,
+      startsAt: dayjs().set('hour', 10).set('minute', 0).set('second', 0).toDate(),
+      endsAt: dayjs().set('hour', 11).set('minute', 0).set('second', 0).toDate(),
+    },
+    {
+      name: 'Palestra x',
+      local: 'sideAuditorium',
+      capacity: 11,
+      startsAt: dayjs().set('hour', 9).set('minute', 0).set('second', 0).toDate(),
+      endsAt: dayjs().set('hour', 11).set('minute', 0).set('second', 0).toDate(),
+    },
+    {
+      name: 'Palestra y',
+      local: 'workshopRoom',
+      capacity: 18,
+      startsAt: dayjs().set('hour', 9).set('minute', 0).set('second', 0).toDate(),
+      endsAt: dayjs().set('hour', 10).set('minute', 0).set('second', 0).toDate(),
+    },
+    {
+      name: 'Palestra z',
+      local: 'workshopRoom',
+      capacity: 15,
+      startsAt: dayjs().set('hour', 10).set('minute', 0).set('second', 0).toDate(),
+      endsAt: dayjs().set('hour', 11).set('minute', 0).set('second', 0).toDate(),
+    },
+    {
+      name: 'Minecraft: montando o PC ideal',
+      local: 'sideAuditorium',
+      capacity: 27,
+      startsAt: dayjs().add(1, 'days').set('hour', 10).set('minute', 0).set('second', 0).toDate(),
+      endsAt: dayjs().add(1, 'days').set('hour', 11).set('minute', 0).set('second', 0).toDate(),
+    },
+    {
+      name: 'Convenção da Apple',
+      local: 'workshopRoom',
+      capacity: 20,
+      startsAt: dayjs().add(1, 'days').set('hour', 11).set('minute', 0).set('second', 0).toDate(),
+      endsAt: dayjs().add(1, 'days').set('hour', 12).set('minute', 0).set('second', 0).toDate(),
+    },
+    {
+      name: 'Campeonato de LOL',
+      local: 'mainAuditorium',
+      capacity: 21,
+      startsAt: dayjs().add(1, 'days').set('hour', 9).set('minute', 0).set('second', 0).toDate(),
+      endsAt: dayjs().add(1, 'days').set('hour', 12).set('minute', 0).set('second', 0).toDate(),
+    },
+    {
+      name: 'Apresentação de projetos Driven',
+      local: 'workshopRoom',
+      capacity: 23,
+      startsAt: dayjs().add(1, 'days').set('hour', 10).set('minute', 0).set('second', 0).toDate(),
+      endsAt: dayjs().add(1, 'days').set('hour', 13).set('minute', 0).set('second', 0).toDate(),
+    },
+  ];
+  let activitiesCount = await prisma.activity.count({});
+  if (activitiesCount != 9) {
+    activitiesCount = (
+      await prisma.activity.createMany({
+        data: activitiesData,
+      })
+    ).count;
+  }
+
+  console.log({ event, typesCount, activitiesCount, hotels });
 }
 
 main()
