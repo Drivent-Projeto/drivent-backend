@@ -14,3 +14,14 @@ export async function createUser(params: Partial<User> = {}): Promise<User> {
     },
   });
 }
+
+export function getUserReturn() {
+  const user: User = {
+    id: 1,
+    email: 'teste@teste.com',
+    password: 'teste123',
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  };
+  return user;
+}
