@@ -89,8 +89,7 @@ describe('getHotelsWithRooms function', () => {
     jest.spyOn(hotelRepository, 'findRoomsByHotelId').mockResolvedValue(hotel);
 
     const result = await hotelsService.getHotelsWithRooms(userId, hotelId);
-    console.log(result);
-    console.log(hotel);
+
     expect(result).toEqual(hotel);
   });
 
