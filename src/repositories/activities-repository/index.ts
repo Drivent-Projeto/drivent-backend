@@ -1,10 +1,9 @@
-import { prisma } from "@/config";
+import { prisma } from '@/config';
 
 async function findActivities() {
-    return prisma.activity.findMany()
+  return prisma.activity.findMany();
 }
 
 export default {
-    findActivities
+  findActivities,
 };
-    
