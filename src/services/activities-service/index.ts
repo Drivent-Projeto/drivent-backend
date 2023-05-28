@@ -10,10 +10,12 @@ async function getActivities() {
   console.log(activities);
   return activities;
 }
+
+async function getUserActivities(userId: number) {
+  return activitiesRepository.userActivities(userId);
+}
 const activitiesService = {
   getActivities,
+  getUserActivities,
 };
-//esta aq só pra não dar erro no eslint, quando for criado mais de uma função e exportada aqui (sem ser no objeto do activitiesService) pode ser removido
-export const test = () => console.log('');
-
 export default activitiesService;
