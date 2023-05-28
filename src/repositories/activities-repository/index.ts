@@ -1,3 +1,4 @@
+import { UserActivity } from '@prisma/client';
 import { prisma } from '@/config';
 
 async function findActivities() {
@@ -29,7 +30,11 @@ async function registerUserActivity(userId: number, activityId: number) {
   });
 }
 
-async function getUserActivities(userId: number, startsAt?: string | Date, endsAt?: string | Date) {
+async function getUserActivities(
+  userId: number,
+  startsAt?: string | Date,
+  endsAt?: string | Date,
+): Promise<UserActivity[]> {
   return prisma.userActivity.findMany({
     where: {
       userId,

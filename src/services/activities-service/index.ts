@@ -1,3 +1,4 @@
+import { UserActivity } from '@prisma/client';
 import { conflictError, notFoundError, unauthorizedError } from '@/errors';
 import activitiesRepository from '@/repositories/activities-repository';
 import enrollmentRepository from '@/repositories/enrollment-repository';
@@ -11,7 +12,7 @@ async function getActivities() {
   return activities;
 }
 
-async function getUserActivities(userId: number) {
+async function getUserActivities(userId: number): Promise<UserActivity[]> {
   return await activitiesRepository.getUserActivities(userId);
 }
 
