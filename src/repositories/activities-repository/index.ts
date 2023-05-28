@@ -12,7 +12,15 @@ async function findActivities() {
   });
 }
 
-async function registerActivity(userId: number, activityId: number) {
+async function getActivity(activity: number) {
+  return prisma.activity.findUnique({
+    where: {
+      id: activity,
+    },
+  });
+}
+
+async function registerUserActivity(userId: number, activityId: number) {
   return prisma.userActivity.create({
     data: {
       activityId,
@@ -21,16 +29,44 @@ async function registerActivity(userId: number, activityId: number) {
   });
 }
 
-async function userActivities(userId: number) {
+async function getUserActivities(userId: number, startsAt?: string | Date, endsAt?: string | Date) {
   return prisma.userActivity.findMany({
     where: {
       userId,
+      OR: [
+        {
+          Activity: {
+            startsAt: {
+              gte: startsAt,
+              lt: endsAt,
+            },
+          },
+        },
+        {
+          Activity: {
+            endsAt: {
+              lte: endsAt,
+              gt: startsAt,
+            },
+          },
+        },
+      ],
+    },
+  });
+}
+
+async function countUserActivities(activityId: number) {
+  return prisma.userActivity.count({
+    where: {
+      activityId,
     },
   });
 }
 
 export default {
   findActivities,
-  registerActivity,
-  userActivities,
+  registerUserActivity,
+  getUserActivities,
+  getActivity,
+  countUserActivities,
 };

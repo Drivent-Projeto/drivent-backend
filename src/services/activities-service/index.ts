@@ -1,4 +1,4 @@
-import { notFoundError, unauthorizedError } from '@/errors';
+import { conflictError, notFoundError, unauthorizedError } from '@/errors';
 import activitiesRepository from '@/repositories/activities-repository';
 import enrollmentRepository from '@/repositories/enrollment-repository';
 
@@ -12,10 +12,26 @@ async function getActivities() {
 }
 
 async function getUserActivities(userId: number) {
-  return activitiesRepository.userActivities(userId);
+  return await activitiesRepository.getUserActivities(userId);
 }
+
+async function registerUserActivity(userId: number, activityId: number) {
+  const activity = await activitiesRepository.getActivity(activityId);
+  if (!activity) throw notFoundError();
+
+  const usersActivityCount = await activitiesRepository.countUserActivities(activityId);
+  if (activity.capacity <= usersActivityCount) throw conflictError('This activity is full');
+
+  const [userActivities] = await activitiesRepository.getUserActivities(userId, activity.startsAt, activity.endsAt);
+
+  if (userActivities) throw conflictError(`User can't enroll in two activities at the same time`);
+
+  return await activitiesRepository.registerUserActivity(userId, activityId);
+}
+
 const activitiesService = {
   getActivities,
   getUserActivities,
+  registerUserActivity,
 };
 export default activitiesService;
