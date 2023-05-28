@@ -4,6 +4,6 @@ import { getActivities } from '@/controllers';
 
 const activitiesRouter = Router();
 
-activitiesRouter.get('/', getActivities);
+activitiesRouter.all('/*', authenticateToken).get('/', getActivities);
 
 export { activitiesRouter };
