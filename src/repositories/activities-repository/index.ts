@@ -3,6 +3,9 @@ import { prisma } from '@/config';
 
 async function findActivities() {
   return prisma.activity.findMany({
+    orderBy: {
+      startsAt: 'asc',
+    },
     include: {
       _count: {
         select: {

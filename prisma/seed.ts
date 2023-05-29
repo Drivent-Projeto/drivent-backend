@@ -72,7 +72,7 @@ async function main() {
     {
       name: 'Minecraft: montando o PC ideal',
       local: 'mainAuditorium',
-      capacity: 1,
+      capacity: 0,
       startsAt: dayjs().set('hour', 9).set('minute', 0).set('second', 0).toDate(),
       endsAt: dayjs().set('hour', 10).set('minute', 0).set('second', 0).toDate(),
     },
