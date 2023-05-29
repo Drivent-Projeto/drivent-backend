@@ -1,9 +1,9 @@
 import { Router } from 'express';
 import { authenticateToken } from '@/middlewares';
-import { getActivities } from '@/controllers';
+import { getActivities, postActivities } from '@/controllers';
 
 const activitiesRouter = Router();
 
-activitiesRouter.all('/*', authenticateToken).get('/', getActivities);
+activitiesRouter.all('/*', authenticateToken).get('/', getActivities).post('/', postActivities);
 
 export { activitiesRouter };

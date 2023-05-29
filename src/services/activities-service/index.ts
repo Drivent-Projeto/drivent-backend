@@ -1,6 +1,5 @@
-import { conflictError, notFoundError, unauthorizedError } from '@/errors';
+import { conflictError, notFoundError } from '@/errors';
 import activitiesRepository from '@/repositories/activities-repository';
-import enrollmentRepository from '@/repositories/enrollment-repository';
 
 async function getActivities() {
   const activities = await activitiesRepository.findActivities();
