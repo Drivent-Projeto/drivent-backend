@@ -1,9 +1,15 @@
 import { Router } from 'express';
 import { authenticateToken } from '@/middlewares';
-import { getActivities, postActivities } from '@/controllers';
+import { getActivities, getUserActivities, postActivities } from '@/controllers';
+import { validForActivities } from '@/middlewares/valid-for-activities';
 
 const activitiesRouter = Router();
 
-activitiesRouter.all('/*', authenticateToken).get('/', getActivities).post('/', postActivities);
+activitiesRouter
+  .all('/*', authenticateToken)
+  .get('/', getActivities)
+  .all('/*', validForActivities)
+  .post('/', postActivities)
+  .get('/user', getUserActivities);
 
 export { activitiesRouter };

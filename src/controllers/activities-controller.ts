@@ -23,3 +23,13 @@ export async function postActivities(req: AuthenticatedRequest, res: Response, n
     next(error);
   }
 }
+
+export async function getUserActivities(req: AuthenticatedRequest, res: Response, next: NextFunction) {
+  const { userId } = req;
+  try {
+    const activities = await activitiesService.getUserActivities(userId);
+    return res.status(httpStatus.OK).send(activities);
+  } catch (error) {
+    next(error);
+  }
+}
