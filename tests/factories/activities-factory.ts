@@ -19,3 +19,12 @@ export function createActivity(capacity: number) {
     },
   });
 }
+
+export function createUserActivity(activityId: number, userId: number) {
+  return prisma.userActivity.create({
+    data: {
+      activityId,
+      userId,
+    },
+  });
+}
