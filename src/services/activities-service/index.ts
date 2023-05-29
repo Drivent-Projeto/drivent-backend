@@ -7,7 +7,7 @@ async function getActivities() {
   if (!activities || activities.length === 0) {
     throw notFoundError();
   }
-  console.log(activities);
+  //console.log(activities);
   return activities;
 }
 
