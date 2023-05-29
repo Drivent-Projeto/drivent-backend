@@ -206,6 +206,7 @@ describe('GET /hotels/:hotelId', () => {
         Rooms: [
           {
             id: createdRoom.id,
+            Booking: expect.any(Array),
             name: createdRoom.name,
             capacity: createdRoom.capacity,
             hotelId: createdHotel.id,
