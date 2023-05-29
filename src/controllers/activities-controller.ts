@@ -5,6 +5,7 @@ import activitiesService from '@/services/activities-service';
 
 export async function getActivities(req: AuthenticatedRequest, res: Response, next: NextFunction) {
   try {
+    console.log('a');
     const activities = await activitiesService.getActivities();
     return res.status(httpStatus.OK).send(activities);
   } catch (error) {

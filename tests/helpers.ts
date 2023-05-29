@@ -18,6 +18,8 @@ export async function cleanDb() {
   await prisma.room.deleteMany({});
   await prisma.hotel.deleteMany({});
   await prisma.user.deleteMany({});
+  await prisma.userActivity.deleteMany({});
+  await prisma.activity.deleteMany({});
 }
 
 export async function generateValidToken(user?: User) {
