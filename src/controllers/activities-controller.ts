@@ -19,7 +19,7 @@ export async function postActivities(req: AuthenticatedRequest, res: Response, n
     const { activityId } = req.body as Record<string, number>;
 
     const activities = await activitiesService.registerUserActivity(userId, activityId);
-    return res.status(httpStatus.OK).send(activities);
+    return res.status(httpStatus.CREATED).send(activities);
   } catch (error) {
     next(error);
   }
