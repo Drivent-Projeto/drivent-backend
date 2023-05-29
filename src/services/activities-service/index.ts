@@ -1,5 +1,5 @@
 import { UserActivity } from '@prisma/client';
-import { conflictError, notFoundError, unauthorizedError } from '@/errors';
+import { conflictError, notFoundError } from '@/errors';
 import activitiesRepository from '@/repositories/activities-repository';
 
 async function getActivities() {
@@ -7,7 +7,7 @@ async function getActivities() {
   if (!activities || activities.length === 0) {
     throw notFoundError();
   }
-  //console.log(activities);
+
   return activities;
 }
 
